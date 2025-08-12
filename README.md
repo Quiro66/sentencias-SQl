@@ -1,0 +1,2 @@
+# sentencias-SQl
+sentencias Sql
