@@ -1,0 +1,49 @@
+select 
+c.id_client,
+c.full_name,
+SUM(t.amount_transaction) as total
+from clients c
+join bills b on c.id_client = b.id_client 
+join transactions t on b.id_bill = t.id_bill
+where t.state_transaction ='Completada'
+group by c.id_client, c.full_name;
+
+SELECT 
+    b.id_bill,
+    c.full_name,
+    b.billing_period,
+    b.billing_amount,
+    b.amount_paid,
+    t.id_transaction,
+    t.state_transaction,
+    t.amount_transaction
+FROM bills b
+JOIN clients c ON b.id_client = c.id_client
+LEFT JOIN transactions t ON b.id_bill = t.id_bill
+WHERE b.amount_paid < b.billing_amount;
+
+SELECT 
+    t.id_transaction,
+    t.date_transaction,
+    t.amount_transaction,
+    t.plataform,
+    c.full_name,
+    b.id_bill
+FROM transactions t
+JOIN bills b ON t.id_bill = b.id_bill
+JOIN clients c ON b.id_client = c.id_client
+WHERE t.plataform = 'Nequi'; -- o 'Daviplata'
+
+SELECT
+    t.id_transaction,
+    t.id_bill,
+    b.id_client AS client,
+    t.plataform
+FROM
+    transactions AS t
+JOIN
+    bills AS b ON t.id_bill = b.id_bill
+WHERE
+    t.plataform = 'Daviplata';
+    
+    select * from transactions
